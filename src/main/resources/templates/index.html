@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("mainTable");
+            switching = true;
+            dir = "asc";
+            while (switching) {
+                switching = false;
+                rows = table.getElementsByTagName("tr");
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("th")[n];
+                    y = rows[i + 1].getElementsByTagName("th")[n];
+                    if (dir === "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch= true;
+                            break;
+                        }
+                    } else if (dir === "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount ++;
+                } else {
+                    if (switchcount === 0 && dir === "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+    </script>
+    <title>Главная страница</title>
+
+</head>
+<body>
+
+
+<nav class="navbar sticky-top navbar-expand-lg bg-info">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">ToDo list</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Список заданий
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/allTasks}">Полный</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" th:href="@{/allNewTasks}">Новые</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" th:href="@{/allDoneTasks}">Выполненные</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <a class="btn btn-primary btn btn-success btn-sm" th:href="@{/addTask}" role="button">Добавить задание</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid" style="padding: 10px 10px">
+    <div class="card">
+        <div class="btn-group" role="group" aria-label="Basic outlined example" style="margin-left: 20px; margin-right: 20px; margin-top: 10px">
+            <button type="button" class="btn btn-info btn-outline-dark" >Сортировка по:</button>
+            <button type="button" class="btn btn-info btn-outline-dark" onclick="sortTable(0)">ID</button>
+            <button type="button" class="btn btn-info btn-outline-dark" onclick="sortTable(2)">Дате</button>
+            <button type="button" class="btn btn-info btn-outline-dark" onclick="sortTable(3)">Статусу</button>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-responsive table-bordered" id="mainTable">
+                <thead class="text-center">
+                    <th scope="col">ID</th>
+                    <th scope="col">Описание</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Статус выполнения</th>
+                </thead>
+                <tbody>
+                <tr th:each="task : ${allTasks}">
+                    <th scope="row" style="width: 100px">
+                        <a style="margin: 5px" th:href="@{|/editTask/${task.getId()}|}">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <span class="fw-normal text-center" th:text="${task.getId()}"></span>
+                    </th>
+                    <th scope="row" style="width: 1500px">
+                        <p class="fw-normal" th:text="${task.getDescription()}" style="text-align: justify"></p>
+                    </th>
+                    <th scope="row" style="width: 150px">
+                        <p class="fw-normal text-center" th:text="${#temporals.format(task.getCreated(), 'dd-MM-yyyy HH:mm')}"></p>
+                    </th>
+                    <th scope="row">
+                        <div class="fw-normal text-center">
+                            <p th:if="${task.isDone()}">
+                                Выполнено
+                            </p>
+                            <p th:if="${!task.isDone()}">
+                                Новое
+                            </p>
+                        </div>
+                    </th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<p class="mt-5 mb-3 text-muted fixed-bottom text-center">&copy; Daniel Kocheshkov 2022</p>
+</body>
+</html>
