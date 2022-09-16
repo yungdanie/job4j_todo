@@ -59,7 +59,7 @@
 
 <nav class="navbar sticky-top navbar-expand-lg bg-info">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">ToDo list</a>
+        <a class="navbar-brand" th:href="@{/index}">ToDo list</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -78,7 +78,7 @@
                     </ul>
                 </li>
             </ul>
-            <a class="btn btn-primary btn btn-success btn-sm" th:href="@{/addTask}" role="button">Добавить задание</a>
+            <a class="btn btn-primary btn btn-success btn-sm" th:href="@{/addTask}" role="button" style="margin-right: 20px">Добавить задание</a>
         </div>
     </div>
 </nav>
@@ -86,7 +86,7 @@
 <div class="container-fluid" style="padding: 10px 10px">
     <div class="card">
         <div class="btn-group" role="group" aria-label="Basic outlined example" style="margin-left: 20px; margin-right: 20px; margin-top: 10px">
-            <button type="button" class="btn btn-info btn-outline-dark" >Сортировка по:</button>
+            <button type="button" class="btn btn-info btn-outline" >Сортировка по:</button>
             <button type="button" class="btn btn-info btn-outline-dark" onclick="sortTable(0)">ID</button>
             <button type="button" class="btn btn-info btn-outline-dark" onclick="sortTable(2)">Дате</button>
             <button type="button" class="btn btn-info btn-outline-dark" onclick="sortTable(3)">Статусу</button>
@@ -103,15 +103,15 @@
                 <tbody>
                 <tr th:each="task : ${allTasks}">
                     <th scope="row" style="width: 100px">
-                        <a style="margin: 5px" th:href="@{|/editTask/${task.getId()}|}">
+                        <a style="margin: 5px" th:href="@{|/tasks/${task.getId()}|}">
                             <i class="fa fa-edit"></i>
                         </a>
                         <span class="fw-normal text-center" th:text="${task.getId()}"></span>
                     </th>
-                    <th scope="row" style="width: 1500px">
+                    <th scope="row" style="width: 1400px">
                         <p class="fw-normal" th:text="${task.getDescription()}" style="text-align: justify"></p>
                     </th>
-                    <th scope="row" style="width: 150px">
+                    <th scope="row" style="width: 200px">
                         <p class="fw-normal text-center" th:text="${#temporals.format(task.getCreated(), 'dd-MM-yyyy HH:mm')}"></p>
                     </th>
                     <th scope="row">

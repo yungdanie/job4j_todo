@@ -54,12 +54,46 @@ public class TaskController {
             model.addAttribute("errorMessage", "Пользователь не найден");
             return "errorPage";
         }
-        model.addAttribute("task", optionalTask.get());
+        model.addAttribute("editTask", optionalTask.get());
         return "editTaskPage";
     }
 
     @PostMapping("/editTask")
     public String editTask(@ModelAttribute Task task) {
+        taskService.update(task);
         return "redirect:index";
+    }
+
+    @GetMapping("/tasks/{taskID}")
+    public String taskPage(@PathVariable("taskID") int taskID, Model model) {
+        Optional<Task> optionalTask = taskService.findById(taskID);
+        if (optionalTask.isEmpty()) {
+            model.addAttribute("errorMessage", "Пользователь не найден");
+            return "errorPage";
+        }
+        model.addAttribute("thisTask", optionalTask.get());
+        return "taskPage";
+    }
+
+    @PostMapping("/executeTask/{taskID}")
+    public String executeTask(@PathVariable("taskID") int taskID, Model model) {
+        Optional<Integer> result = taskService.executeDone(taskID);
+        if (result.isEmpty()) {
+            model.addAttribute("errorMessage", "Пометить задачу как \"выполненная\" не получилось");
+            return "errorPage";
+        }
+        model.addAttribute("successMessage", "Задача выполнена успешна");
+        return "successPage";
+    }
+
+    @PostMapping("/deleteTask/{taskID}")
+    public String deleteTask(@PathVariable("taskID") int taskID, Model model) {
+        Optional<Integer> result = taskService.delete(taskID);
+        if (result.isEmpty()) {
+            model.addAttribute("errorMessage", "Удалить задачу не удалось");
+            return "errorPage";
+        }
+        model.addAttribute("successMessage", "Задача удалена успешно");
+        return "successPage";
     }
 }

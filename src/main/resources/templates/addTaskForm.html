@@ -13,12 +13,12 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 
-    <title>Главная страница</title>
+    <title>Добавление задачи</title>
 </head>
 <body>
 <nav class="navbar sticky-top navbar-expand-lg bg-info">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">ToDo list</a>
+        <a class="navbar-brand" th:href="@{/index}">ToDo list</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,7 +37,7 @@
                     </ul>
                 </li>
             </ul>
-            <a class="btn btn-primary btn btn-success btn-sm" th:href="@{/addTask}" role="button">Добавить задание</a>
+            <a class="btn btn-primary btn btn-success btn-sm" th:href="@{/addTask}" role="button" style="margin-right: 20px">Добавить задание</a>
         </div>
     </div>
 </nav>

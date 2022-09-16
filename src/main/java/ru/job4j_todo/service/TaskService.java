@@ -13,6 +13,31 @@ import java.util.Optional;
 public class TaskService {
     private final TaskHBStore store;
 
+    public Optional<Integer> executeDone(int id) {
+        Optional<Integer> result;
+        int res = store.executeDone(id);
+        if (res != 0) {
+            result = Optional.of(res);
+        } else {
+            result = Optional.empty();
+        }
+        return result;
+    }
+    public Optional<Integer> delete(int id) {
+        Optional<Integer> result;
+        int res = store.delete(id);
+        if (res != 0) {
+            result = Optional.of(res);
+        } else {
+            result = Optional.empty();
+        }
+        return result;
+    }
+
+    public int update(Task task) {
+        return store.update(task);
+    }
+
     public Task add(Task task) {
         return store.add(task);
     }
