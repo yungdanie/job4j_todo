@@ -23,7 +23,7 @@
         <start.port>8081</start.port>
         <liquibase.master>db/master.xml</liquibase.master>
         <db.url>jdbc:postgresql://127.0.0.1:5432/postgres</db.url>
-        <db.username>postgre</db.username>
+        <db.username>postgres</db.username>
         <db.password>password</db.password>
         <db.driver>org.postgresql.Driver</db.driver>
     </properties>
