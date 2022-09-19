@@ -39,16 +39,16 @@ ___
 
 *Главная страница*
 
-![Image alt](https://github.com/yungdanie/job4j_todo/raw/master/src/main/resources/img/main_page.png)
+![Image alt](https://github.com/yungdanie/job4j_todo/raw/master/src/main/resources/img/main_page.jpg)
 
 *Добавление задачи*
 
-![Image alt](https://github.com/yungdanie/job4j_todo/raw/master/src/main/resources/img/add_task.png)
+![Image alt](https://github.com/yungdanie/job4j_todo/raw/master/src/main/resources/img/add_task.jpg)
 
 *Страница задачи*
 
-![Image alt](https://github.com/yungdanie/job4j_todo/raw/master/src/main/resources/img/task_page.png)
+![Image alt](https://github.com/yungdanie/job4j_todo/raw/master/src/main/resources/img/task_page.jpg)
 
 *Изменение задачи*
 
-![Image alt](https://github.com/yungdanie/job4j_todo/raw/master/src/main/resources/img/edit_task.png)
+![Image alt](https://github.com/yungdanie/job4j_todo/raw/master/src/main/resources/img/edit_task.jpg)
