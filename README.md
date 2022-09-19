@@ -34,3 +34,21 @@ ___
   2) По необходимости настроить liqubase назначаются в "db/liquibase.properties".
 
   3) В пакете проекта выполнить команду "mvn spring-boot:run".
+
+# Изображения страниц приложения
+
+*Главная страница*
+
+![Image alt](https://github.com/yungdanie/job4j_todo/raw/master/src/main/resources/img/main_page.jpg)
+
+*Добавление задачи*
+
+![Image alt](https://github.com/yungdanie/job4j_todo/raw/master/src/main/resources/img/add_task.jpg)
+
+*Страница задачи*
+
+![Image alt](https://github.com/yungdanie/job4j_todo/raw/master/src/main/resources/img/task_page.jpg)
+
+*Изменение задачи*
+
+![Image alt](https://github.com/yungdanie/job4j_todo/raw/master/src/main/resources/img/edit_task.jpg)
