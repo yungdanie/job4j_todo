@@ -77,8 +77,18 @@
                         <li><a class="dropdown-item" th:href="@{/allDoneTasks}">Выполненные</a></li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a class="btn btn-primary btn btn-success btn-sm" th:href="@{/addTask}" role="button" style="margin: 5px 20px">Добавить задание</a>
+                </li>
             </ul>
-            <a class="btn btn-primary btn btn-success btn-sm" th:href="@{/addTask}" role="button" style="margin-right: 20px">Добавить задание</a>
+        </div>
+
+        <div class="navbar-nav">
+            <div class="nav-item nav-link" style="margin: 5px">
+                <span th:text="'Гость '"></span>
+                <a class="btn btn-primary btn btn-primary btn-sm" th:href="@{/authUser}" role="button">Вход</a>
+                <a class="btn btn-primary btn btn-primary btn-sm" th:href="@{/authUser}" role="button">Регистрация</a>
+            </div>
         </div>
     </div>
 </nav>
