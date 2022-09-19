@@ -1,4 +1,4 @@
-package ru.job4j_todo.model;
+package ru.todolist.model;
 
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package ru.job4j_todo;
+package ru.todolist;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -19,6 +19,6 @@ public class Job4jTodoApplication {
     public SessionFactory sf() {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure().build();
-        return new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+        return new MetadataSources(registry).buildMetadata().buildSessionFactory();
     }
 }

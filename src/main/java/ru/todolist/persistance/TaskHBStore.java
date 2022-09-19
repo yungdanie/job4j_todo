@@ -1,11 +1,11 @@
-package ru.job4j_todo.persistance;
+package ru.todolist.persistance;
 
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-import ru.job4j_todo.model.Task;
+import ru.todolist.model.Task;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -36,6 +36,7 @@ public class TaskHBStore {
         }
         return res;
     }
+
     public int delete(int id) {
         Session session = sf.openSession();
         Transaction tx = null;

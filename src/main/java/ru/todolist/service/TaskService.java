@@ -1,9 +1,9 @@
-package ru.job4j_todo.service;
+package ru.todolist.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.job4j_todo.model.Task;
-import ru.job4j_todo.persistance.TaskHBStore;
+import ru.todolist.model.Task;
+import ru.todolist.persistance.TaskHBStore;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +23,7 @@ public class TaskService {
         }
         return result;
     }
+
     public Optional<Integer> delete(int id) {
         Optional<Integer> result;
         int res = store.delete(id);
@@ -45,6 +46,7 @@ public class TaskService {
     public Optional<Task> findById(int id) {
         return store.findById(id);
     }
+
     public List<Task> getAll() {
         return store.getAllTask();
     }

@@ -1,4 +1,4 @@
-package ru.job4j_todo.control;
+package ru.todolist.control;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -7,11 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.job4j_todo.model.Task;
-import ru.job4j_todo.service.TaskService;
+import ru.todolist.model.Task;
+import ru.todolist.service.TaskService;
 
 import java.util.Optional;
-
 
 @Controller
 @AllArgsConstructor

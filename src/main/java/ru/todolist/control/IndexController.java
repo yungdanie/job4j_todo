@@ -1,11 +1,11 @@
-package ru.job4j_todo.control;
+package ru.todolist.control;
 
 import lombok.AllArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.job4j_todo.service.TaskService;
+import ru.todolist.service.TaskService;
 
 @Controller
 @AllArgsConstructor
