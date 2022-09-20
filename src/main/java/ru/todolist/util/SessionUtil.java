@@ -10,7 +10,6 @@ public class SessionUtil {
         User user = (User) httpSession.getAttribute("user");
         if (user == null) {
             user = new User();
-            user.setName("Гость");
         }
         return user;
     }

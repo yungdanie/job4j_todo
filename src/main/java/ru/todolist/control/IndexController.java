@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.todolist.service.TaskService;
-import ru.todolist.util.SessionUtil;
+import ru.todolist.util.AuthUserUtil;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +18,7 @@ public class IndexController {
 
     @GetMapping("/index")
     public String index(Model model, HttpSession httpSession) {
-        model.addAttribute("user", SessionUtil.reg(httpSession));
+        AuthUserUtil.userModelAdd(model, httpSession);
         model.addAttribute("allTasks", taskService.getAll());
         return "index";
     }

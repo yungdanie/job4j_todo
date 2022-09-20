@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 import ru.todolist.model.User;
 
 import java.util.Optional;
@@ -12,7 +13,7 @@ import java.util.Optional;
 public class UserHBStore {
     private final SessionFactory sf;
 
-    public User add(User user) {
+    public User add(User user) throws ConstraintViolationException {
         Session session = sf.openSession();
         Transaction tx = null;
         try {

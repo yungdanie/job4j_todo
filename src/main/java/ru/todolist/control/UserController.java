@@ -2,6 +2,8 @@ package ru.todolist.control;
 
 
 import lombok.AllArgsConstructor;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +22,9 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/authUser")
-    public String authUserForm(@RequestParam(name = "fail", required = false) Boolean fail, HttpSession httpSession) {
-        User user = SessionUtil.reg(httpSession);
-        if (AuthUserUtil.auth(user)) {
-            return "redirect:index";
+    public String authUserForm(@RequestParam(name = "fail", required = false) Boolean fail, Model model) {
+        if (fail != null) {
+            model.addAttribute("fail", fail);
         }
         return "loginPage";
     }
@@ -36,5 +37,25 @@ public class UserController {
         }
         session.setAttribute("user", loggedUser.get());
         return "index";
+    }
+
+
+    @GetMapping("/regUser")
+    public String registrationUser(@RequestParam(name = "fail", required = false) Boolean fail, Model model) {
+        if (fail != null) {
+            model.addAttribute("fail", fail);
+        }
+        return "regUser";
+    }
+    @PostMapping("/regUser")
+    public String authRegUser(@ModelAttribute User user, Model model, HttpSession httpSession) {
+        User regUser;
+        try {
+            regUser = userService.add(user);
+        } catch (ConstraintViolationException e) {
+            return "redirect:regUser?fail=true";
+        }
+        model.addAttribute("successMessage", "Регистрация прошла успешно!");
+        return "successPage";
     }
 }

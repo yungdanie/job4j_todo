@@ -36,8 +36,20 @@
             <li><a class="dropdown-item" th:href="@{/allDoneTasks}">Выполненные</a></li>
           </ul>
         </li>
+        <li class="nav-item">
+          <a class="btn btn-primary btn btn-success btn-sm" th:href="@{/addTask}" role="button" style="margin: 5px 20px">Добавить задание</a>
+        </li>
       </ul>
-      <a class="btn btn-primary btn btn-success btn-sm" th:href="@{/addTask}" role="button" style="margin-right: 20px">Добавить задание</a>
+    </div>
+
+    <div class="navbar-nav">
+      <div class="nav-item nav-link" th:if="${isUserAuth}" style="margin: 5px">
+        <a class="btn btn-primary btn btn-success btn-sm" th:text="|${user.getLogin()}|" role="button" aria-disabled="true"></a>
+      </div>
+      <div class="nav-item nav-link" th:if="${!isUserAuth}" style="margin: 5px">
+        <a class="btn btn-primary btn btn-success btn-sm" th:href="@{/authUser}" role="button" style="margin: 5px 10px">Вход</a>
+        <a class="btn btn-primary btn btn-success btn-sm" th:href="@{/regUser}" role="button" style="margin: 5px 10px">Регистрация</a>
+      </div>
     </div>
   </div>
 </nav>
