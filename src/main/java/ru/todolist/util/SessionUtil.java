@@ -6,11 +6,10 @@ import javax.servlet.http.HttpSession;
 
 public class SessionUtil {
 
+    public static void addUser(HttpSession httpSession, User user) {
+        httpSession.setAttribute("user", user);
+    }
     public static User reg(HttpSession httpSession) {
-        User user = (User) httpSession.getAttribute("user");
-        if (user == null) {
-            user = new User();
-        }
-        return user;
+        return (User) httpSession.getAttribute("user");
     }
 }

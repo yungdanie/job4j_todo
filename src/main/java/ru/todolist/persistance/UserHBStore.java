@@ -5,10 +5,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.stereotype.Repository;
 import ru.todolist.model.User;
 
 import java.util.Optional;
 
+@Repository
 @AllArgsConstructor
 public class UserHBStore {
     private final SessionFactory sf;
@@ -53,10 +55,11 @@ public class UserHBStore {
     public Optional<User> getByLoginAndPassword(User user) {
         Session session = sf.openSession();
         Transaction tx = null;
+        user.setName(user.getLogin());
         Optional<User> optionalUser;
         try {
             tx = session.beginTransaction();
-            optionalUser = session.createQuery("from User where login = :login AND password = :password ", User.class)
+            optionalUser = session.createQuery("from User where login = :login AND password = :password", User.class)
                     .setParameter("login", user.getLogin())
                     .setParameter("password", user.getPassword())
                     .uniqueResultOptional();

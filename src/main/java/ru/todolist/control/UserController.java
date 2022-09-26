@@ -3,6 +3,7 @@ package ru.todolist.control;
 
 import lombok.AllArgsConstructor;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +17,7 @@ import ru.todolist.util.SessionUtil;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
+@Controller
 @AllArgsConstructor
 public class UserController {
 
@@ -35,7 +37,7 @@ public class UserController {
         if (loggedUser.isEmpty()) {
             return "redirect:/authUser?fail=true";
         }
-        session.setAttribute("user", loggedUser.get());
+        SessionUtil.addUser(session, loggedUser.get());
         return "index";
     }
 
@@ -45,16 +47,17 @@ public class UserController {
         if (fail != null) {
             model.addAttribute("fail", fail);
         }
-        return "regUser";
+        return "regPage";
     }
     @PostMapping("/regUser")
-    public String authRegUser(@ModelAttribute User user, Model model, HttpSession httpSession) {
+    public String authRegUser(@ModelAttribute User user, Model model, HttpSession session) {
         User regUser;
         try {
             regUser = userService.add(user);
         } catch (ConstraintViolationException e) {
             return "redirect:regUser?fail=true";
         }
+        SessionUtil.addUser(session, user);
         model.addAttribute("successMessage", "Регистрация прошла успешно!");
         return "successPage";
     }

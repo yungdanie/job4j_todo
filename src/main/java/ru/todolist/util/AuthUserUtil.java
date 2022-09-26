@@ -9,20 +9,20 @@ public class AuthUserUtil {
 
     public static boolean isAuth(HttpSession httpSession) {
         User user = SessionUtil.reg(httpSession);
-        return user.getId() != 0 && user.getName() != null && user.getLogin() != null && user.getPassword() != null;
+        return isAuth(user);
     }
     public static boolean isAuth(User user) {
-        return user.getId() != 0 && !user.getName().equals("Гость") && user.getLogin() != null && user.getPassword() != null;
+        return user != null && user.getId() != 0 && user.getLogin() != null && user.getPassword() != null;
     }
 
-    public static boolean userModelAdd(Model model, HttpSession httpSession) {
-        User regUser = SessionUtil.reg(httpSession);
+    public static User addModelUser(Model model, HttpSession session) {
         boolean res = false;
-        if (isAuth(regUser)) {
-            res = true;
-            model.addAttribute("user", regUser);
+        User user = (User) session.getAttribute("user");
+        if (isAuth(user)) {
+                res = true;
         }
+        model.addAttribute("user", user);
         model.addAttribute("isUserAuth", res);
-        return res;
+        return user;
     }
 }

@@ -5,13 +5,13 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
-@Table(name = "todo_user")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
 @ToString
+@Entity
+@Table(name = "todo_user")
 public class User {
 
     @Column(name = "id")

@@ -3,11 +3,13 @@ package ru.todolist.service;
 
 import lombok.AllArgsConstructor;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.stereotype.Service;
 import ru.todolist.model.User;
 import ru.todolist.persistance.UserHBStore;
 
 import java.util.Optional;
 
+@Service
 @AllArgsConstructor
 public class UserService {
 

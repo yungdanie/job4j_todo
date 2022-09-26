@@ -41,16 +41,6 @@
                 </li>
             </ul>
         </div>
-
-        <div class="navbar-nav">
-            <div class="nav-item nav-link" th:if="${isUserAuth}" style="margin: 5px">
-                <a class="btn btn-primary btn btn-success btn-sm" th:text="|${user.getLogin()}|" role="button" aria-disabled="true"></a>
-            </div>
-            <div class="nav-item nav-link" th:if="${!isUserAuth}" style="margin: 5px">
-                <a class="btn btn-primary btn btn-success btn-sm" th:href="@{/authUser}" role="button" style="margin: 5px 10px">Вход</a>
-                <a class="btn btn-primary btn btn-success btn-sm" th:href="@{/regUser}" role="button" style="margin: 5px 10px">Регистрация</a>
-            </div>
-        </div>
     </div>
 </nav>
 
@@ -72,7 +62,7 @@
                     <input type="text" class="form-control" placeholder="Login" name="login" id="login" style="margin: auto auto 5%" required>
                     <input type="text" class="form-control" placeholder="Password" name="password" id="password" style="margin: auto auto 20px" required>
                 </div>
-                <input class="btn btn-info" type="submit" th:form="input" placeholder="Войти" style="margin: auto auto 10px; width: 40%; font-weight: bold">
+                <button class="btn btn-info" type="submit" th:form="input" style="margin: auto auto 10px; width: 40%; font-weight: bold">Войти</button>
             </form>
         </div>
     </div>

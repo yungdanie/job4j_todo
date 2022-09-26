@@ -134,14 +134,14 @@ public class TaskHBStore {
         return list;
     }
 
-    private List<Task> getByCondDone(boolean cond) {
+    public List<Task> getByCondDone(boolean cond) {
         List<Task> list;
         Session session = sf.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            list = session.createQuery("from Task where done = :fDone", Task.class)
-                    .setParameter("fDone", cond)
+            list = session.createQuery("from Task where done = :done", Task.class)
+                    .setParameter("done", cond)
                     .list();
         } catch (Exception e) {
             if (tx != null) {
@@ -152,13 +152,5 @@ public class TaskHBStore {
             session.close();
         }
         return list;
-    }
-
-    public List<Task> getDone() {
-        return getByCondDone(true);
-    }
-
-    public List<Task> getNew() {
-        return getByCondDone(false);
     }
 }

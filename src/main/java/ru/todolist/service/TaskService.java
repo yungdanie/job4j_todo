@@ -52,10 +52,10 @@ public class TaskService {
     }
 
     public List<Task> getDone() {
-        return store.getDone();
+        return store.getByCondDone(true);
     }
 
     public List<Task> getNew() {
-        return store.getNew();
+        return store.getByCondDone(false);
     }
 }
