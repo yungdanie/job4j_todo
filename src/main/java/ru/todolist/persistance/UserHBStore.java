@@ -55,7 +55,6 @@ public class UserHBStore {
     public Optional<User> getByLoginAndPassword(User user) {
         Session session = sf.openSession();
         Transaction tx = null;
-        user.setName(user.getLogin());
         Optional<User> optionalUser;
         try {
             tx = session.beginTransaction();

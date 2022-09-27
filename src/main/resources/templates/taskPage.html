@@ -46,7 +46,8 @@
 
         <div class="navbar-nav">
             <div class="nav-item nav-link" th:if="${isUserAuth}" style="margin: 5px">
-                <a class="btn btn-primary btn btn-success btn-sm" th:text="|${user.getLogin()}|" role="button" aria-disabled="true"></a>
+                <a class="btn btn-primary btn btn-success btn-sm" th:text="|${user.getLogin()}|" role="button" aria-disabled="true" style="margin: 5px 10px"></a>
+                <a class="btn btn-primary btn btn-danger btn-sm" th:href="@{/logout}" role="button" aria-disabled="true" style="margin: 5px 10px">Выход</a>
             </div>
             <div class="nav-item nav-link" th:if="${!isUserAuth}" style="margin: 5px">
                 <a class="btn btn-primary btn btn-success btn-sm" th:href="@{/authUser}" role="button" style="margin: 5px 10px">Вход</a>

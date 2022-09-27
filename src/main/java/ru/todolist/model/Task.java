@@ -34,21 +34,14 @@ public class Task {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id == task.id
-                && done == task.done
-                && Objects.equals(description, task.description)
-                && Objects.equals(created, task.created);
+        return id == task.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, created, done);
+        return Objects.hash(id);
     }
 }

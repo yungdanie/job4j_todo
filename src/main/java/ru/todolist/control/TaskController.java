@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.todolist.model.Task;
-import ru.todolist.model.User;
 import ru.todolist.service.TaskService;
-import ru.todolist.util.AuthUserUtil;
+import ru.todolist.util.UserUtil;
 
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
@@ -22,28 +21,28 @@ public class TaskController {
 
     @GetMapping("/allTasks")
     public String allTasks(Model model, HttpSession session) {
-        AuthUserUtil.addModelUser(model, session);
+        UserUtil.addModelUser(model, session);
         model.addAttribute("allTasks", taskService.getAll());
         return "allTasksForm";
     }
 
     @GetMapping("/allNewTasks")
     public String allNewTasks(Model model, HttpSession session) {
-        AuthUserUtil.addModelUser(model, session);
+        UserUtil.addModelUser(model, session);
         model.addAttribute("newTasks", taskService.getNew());
         return "allNewTasksForm";
     }
 
     @GetMapping("/allDoneTasks")
     public String allDoneTasks(Model model, HttpSession session) {
-        AuthUserUtil.addModelUser(model, session);
+        UserUtil.addModelUser(model, session);
         model.addAttribute("doneTasks", taskService.getDone());
         return "allDoneTasksForm";
     }
 
     @GetMapping("/addTask")
     public String addTaskForm(Model model, HttpSession session) {
-        AuthUserUtil.addModelUser(model, session);
+        UserUtil.addModelUser(model, session);
         return "addTaskForm";
     }
 
@@ -55,7 +54,7 @@ public class TaskController {
 
     @GetMapping("/editTask/{taskID}")
     public String updateTask(@PathVariable("taskID") int taskID, Model model, HttpSession session) {
-        AuthUserUtil.addModelUser(model, session);
+        UserUtil.addModelUser(model, session);
         Optional<Task> optionalTask = taskService.findById(taskID);
         if (optionalTask.isEmpty()) {
             model.addAttribute("errorMessage", "Пользователь не найден");
@@ -73,7 +72,7 @@ public class TaskController {
 
     @GetMapping("/tasks/{taskID}")
     public String taskPage(@PathVariable("taskID") int taskID, Model model, HttpSession session) {
-        AuthUserUtil.addModelUser(model, session);
+        UserUtil.addModelUser(model, session);
         Optional<Task> optionalTask = taskService.findById(taskID);
         if (optionalTask.isEmpty()) {
             model.addAttribute("errorMessage", "Пользователь не найден");
@@ -85,7 +84,7 @@ public class TaskController {
 
     @PostMapping("/executeTask/{taskID}")
     public String executeTask(@PathVariable("taskID") int taskID, Model model, HttpSession session) {
-        AuthUserUtil.addModelUser(model, session);
+        UserUtil.addModelUser(model, session);
         Optional<Integer> result = taskService.executeDone(taskID);
         if (result.isEmpty()) {
             model.addAttribute("errorMessage", "Пометить задачу как \"выполненная\" не получилось");
@@ -97,7 +96,7 @@ public class TaskController {
 
     @PostMapping("/deleteTask/{taskID}")
     public String deleteTask(@PathVariable("taskID") int taskID, Model model, HttpSession session) {
-        AuthUserUtil.addModelUser(model, session);
+        UserUtil.addModelUser(model, session);
         Optional<Integer> result = taskService.delete(taskID);
         if (result.isEmpty()) {
             model.addAttribute("errorMessage", "Удалить задачу не удалось");

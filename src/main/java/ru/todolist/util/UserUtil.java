@@ -5,7 +5,7 @@ import ru.todolist.model.User;
 
 import javax.servlet.http.HttpSession;
 
-public class AuthUserUtil {
+public class UserUtil {
 
     public static boolean isAuth(HttpSession httpSession) {
         User user = SessionUtil.reg(httpSession);
@@ -16,13 +16,26 @@ public class AuthUserUtil {
     }
 
     public static User addModelUser(Model model, HttpSession session) {
-        boolean res = false;
         User user = (User) session.getAttribute("user");
-        if (isAuth(user)) {
-                res = true;
-        }
+        boolean res = isAuth(user);
         model.addAttribute("user", user);
         model.addAttribute("isUserAuth", res);
         return user;
+    }
+
+    public static User addModelUser(Model model, User user) {
+        boolean res = isAuth(user);
+        model.addAttribute("user", user);
+        model.addAttribute("isUserAuth", res);
+        return user;
+    }
+
+    public static void addSessionAndModelUser(Model model, HttpSession httpSession, User user) {
+        httpSession.setAttribute("user", user);
+        addModelUser(model, user);
+    }
+
+    public static void logoutUser(HttpSession session) {
+        session.setAttribute("user", new User());
     }
 }

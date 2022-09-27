@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.todolist.model.User;
 import ru.todolist.service.UserService;
-import ru.todolist.util.AuthUserUtil;
-import ru.todolist.util.SessionUtil;
+import ru.todolist.util.UserUtil;
 
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
@@ -32,12 +31,12 @@ public class UserController {
     }
 
     @PostMapping("/authUser")
-    public String authUser(@ModelAttribute User user, HttpSession session) {
+    public String authUser(@ModelAttribute User user, HttpSession session, Model model) {
         Optional<User> loggedUser = userService.getByLoginAndPassword(user);
         if (loggedUser.isEmpty()) {
             return "redirect:/authUser?fail=true";
         }
-        SessionUtil.addUser(session, loggedUser.get());
+        UserUtil.addSessionAndModelUser(model, session, loggedUser.get());
         return "index";
     }
 
@@ -57,8 +56,14 @@ public class UserController {
         } catch (ConstraintViolationException e) {
             return "redirect:regUser?fail=true";
         }
-        SessionUtil.addUser(session, user);
+        UserUtil.addSessionAndModelUser(model, session, regUser);
         model.addAttribute("successMessage", "Регистрация прошла успешно!");
         return "successPage";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        UserUtil.logoutUser(session);
+        return "redirect:authPage";
     }
 }
