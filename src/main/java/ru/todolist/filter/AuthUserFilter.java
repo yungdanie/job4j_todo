@@ -8,9 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Set;
 
 @Component
 public class AuthUserFilter implements Filter {
+
+    private final Set<String> authURL;
+    public AuthUserFilter() {
+        authURL = Set.of("authUser", "regUser");
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -20,17 +26,21 @@ public class AuthUserFilter implements Filter {
         String uri = req.getRequestURI();
         boolean isAuth = UserUtil.isAuth(session);
         if (isAuth) {
-            if (uri.endsWith("authUser") || uri.endsWith("regUser")) {
+            if (isURLValid(uri)) {
                 res.sendRedirect("index");
                 return;
             }
         } else {
-            if (!uri.endsWith("authUser") && !uri.endsWith("regUser")) {
+            if (!isURLValid(uri)) {
                 res.sendRedirect("authUser");
                 return;
             }
         }
         chain.doFilter(req, res);
+    }
+
+    public boolean isURLValid(String uri) {
+        return authURL.stream().anyMatch(x -> x.endsWith(uri));
     }
 
 }
