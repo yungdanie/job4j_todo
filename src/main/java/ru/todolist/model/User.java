@@ -14,9 +14,11 @@ import java.util.Objects;
 @Table(name = "todo_user")
 public class User {
 
-    @Column(name = "id")
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "user_seq", sequenceName = "user_sequence", initialValue = 1, allocationSize = 10)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "user_seq")
+    @Column(name = "id")
     private int id;
 
     @Column(name = "name")

@@ -1,6 +1,7 @@
 package ru.todolist.model;
 
 import lombok.*;
+import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,7 +17,8 @@ import java.util.Objects;
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "task_seq", sequenceName = "task_sequence", initialValue = 1, allocationSize = 10)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "task_seq")
     @Column(name = "id")
     private int id;
 
