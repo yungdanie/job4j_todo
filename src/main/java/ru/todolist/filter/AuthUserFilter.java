@@ -40,7 +40,9 @@ public class AuthUserFilter implements Filter {
     }
 
     public boolean isURLValid(String uri) {
-        return authURL.stream().anyMatch(x -> x.endsWith(uri));
+        return authURL
+                .stream()
+                .anyMatch(uri::endsWith);
     }
 
 }

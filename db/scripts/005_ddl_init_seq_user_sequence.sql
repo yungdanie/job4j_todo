@@ -1,0 +1,1 @@
+create sequence user_sequence start 1 increment 10;

@@ -1,7 +1,9 @@
 package ru.todolist.persistance;
 
+import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 import ru.todolist.model.User;
 
 import java.util.List;
@@ -10,13 +12,11 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class userRepository {
+@AllArgsConstructor
+@Repository
+public class UserRepository {
 
     private final SessionFactory sf;
-
-    public userRepository(SessionFactory sessionFactory) {
-        sf = sessionFactory;
-    }
 
     private  <T> T tx(Function<Session, T> command) {
         var session = sf.openSession();
@@ -35,18 +35,10 @@ public class userRepository {
     }
 
     private void tx(Consumer<Session> command) {
-        var session = sf.openSession();
-        try (session) {
-            var tx = session.beginTransaction();
+        tx(session -> {
             command.accept(session);
-            tx.commit();
-        } catch (Exception e) {
-            var tx = session.getTransaction();
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-            throw e;
-        }
+            return null;
+        });
     }
 
 
@@ -76,8 +68,8 @@ public class userRepository {
         return getList(query, Map.of(), tClass);
     }
 
-    public User create(User user) {
-        tx((Consumer<Session>) session -> session.save(user));
+    public User add(User user) {
+        tx((Consumer<Session>) session -> session.persist(user));
         return user;
     }
 
@@ -89,8 +81,12 @@ public class userRepository {
         return getUniqResult("from User where id = :fId", Map.of("fId", id), User.class);
     }
 
+    public Optional<User> getById(User user) {
+        return getUniqResult("from User where id = :fId", Map.of("fId", user.getId()), User.class);
+    }
+
     public Optional<User> getByLoginAndPassword(User user) {
-        return getUniqResult("from User where login = :fLogin, password = :fPassword",
+        return getUniqResult("from User where login = :fLogin and password = :fPassword",
                 Map.of("fLogin", user.getLogin(), "fPassword", user.getPassword()),
                 User.class);
     }

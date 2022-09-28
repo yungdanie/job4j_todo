@@ -6,6 +6,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Service;
 import ru.todolist.model.User;
 import ru.todolist.persistance.UserHBStore;
+import ru.todolist.persistance.UserRepository;
 
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserService {
 
-    private final UserHBStore store;
+    private final UserRepository store;
 
     public User add(User user) throws ConstraintViolationException {
         return store.add(user);

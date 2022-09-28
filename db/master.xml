@@ -5,7 +5,5 @@
         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    <include file="scripts/001_ddl_init_schema_todo_task.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/002_dml_insert_task.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/003_ddl_init_schema_todo_user.sql" relativeToChangelogFile="true"/>
+    <includeAll path="scripts" relativeToChangelogFile="true"/>
 </databaseChangeLog>
