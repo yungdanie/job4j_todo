@@ -106,10 +106,11 @@
         <div class="card-body">
             <table class="table table-responsive table-bordered" id="mainTable">
                 <thead class="text-center">
-                    <th scope="col">ID</th>
-                    <th scope="col">Описание</th>
-                    <th scope="col">Дата</th>
-                    <th scope="col">Статус выполнения</th>
+                <th scope="col">ID</th>
+                <th scope="col">Польз.</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Дата</th>
+                <th scope="col">Статус выполнения</th>
                 </thead>
                 <tbody>
                 <tr th:each="task : ${doneTasks}">
@@ -119,6 +120,9 @@
                         </a>
                         <span class="fw-normal text-center" th:text="${task.getId()}"></span>
                     </th>
+                    <th scope="row" style="width: 100px">
+                        <p class="fw-normal text-center" th:text="${task.getUser().getLogin()}" style="text-align: justify"></p>
+                    </th>
                     <th scope="row" style="width: 1400px">
                         <p class="fw-normal" th:text="${task.getDescription()}" style="text-align: justify"></p>
                     </th>
@@ -126,9 +130,12 @@
                         <p class="fw-normal text-center" th:text="${#temporals.format(task.getCreated(), 'dd-MM-yyyy HH:mm')}"></p>
                     </th>
                     <th scope="row">
-                        <div class="text-center fw-normal">
-                            <p>
+                        <div class="fw-normal text-center">
+                            <p th:if="${task.isDone()}">
                                 Выполнено
+                            </p>
+                            <p th:if="${!task.isDone()}">
+                                Новое
                             </p>
                         </div>
                     </th>

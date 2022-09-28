@@ -3,7 +3,7 @@ package ru.todolist.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.todolist.model.Task;
-import ru.todolist.persistance.TaskHBStore;
+import ru.todolist.persistance.TaskRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class TaskService {
-    private final TaskHBStore store;
+    private final TaskRepository store;
 
     public Optional<Integer> executeDone(int id) {
         Optional<Integer> result;
@@ -35,8 +35,8 @@ public class TaskService {
         return result;
     }
 
-    public int update(Task task) {
-        return store.update(task);
+    public void update(Task task) {
+        store.update(task);
     }
 
     public Task add(Task task) {

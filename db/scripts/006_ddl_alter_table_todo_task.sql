@@ -1,0 +1,1 @@
+alter table todo_task add column user_id int references todo_user(id);

@@ -27,12 +27,12 @@ public class AuthUserFilter implements Filter {
         boolean isAuth = UserUtil.isAuth(session);
         if (isAuth) {
             if (isURLValid(uri)) {
-                res.sendRedirect("index");
+                res.sendRedirect(req.getContextPath() + "index");
                 return;
             }
         } else {
             if (!isURLValid(uri)) {
-                res.sendRedirect("authUser");
+                res.sendRedirect(req.getContextPath() + "authUser");
                 return;
             }
         }

@@ -1,7 +1,6 @@
 package ru.todolist.model;
 
 import lombok.*;
-import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +11,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "todo_task")
 public class Task {
@@ -31,9 +31,9 @@ public class Task {
     @Column(name = "done")
     private boolean done;
 
-    public Task() {
-    }
-
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

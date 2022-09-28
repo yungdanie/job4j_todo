@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.todolist.model.Task;
 import ru.todolist.service.TaskService;
+import ru.todolist.util.SessionUtil;
 import ru.todolist.util.UserUtil;
 
 import javax.servlet.http.HttpSession;
@@ -47,7 +48,8 @@ public class TaskController {
     }
 
     @PostMapping("/addTask")
-    public String addTask(@ModelAttribute Task task) {
+    public String addTask(@ModelAttribute Task task, HttpSession session) {
+        task.setUser(SessionUtil.reg(session));
         taskService.add(task);
         return "redirect:index";
     }

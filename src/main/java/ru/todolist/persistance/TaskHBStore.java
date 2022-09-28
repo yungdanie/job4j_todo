@@ -104,7 +104,8 @@ public class TaskHBStore {
         try {
             tx = session.beginTransaction();
             task.setCreated(LocalDateTime.now());
-            session.save(task);
+            session.persist(task);
+            tx.commit();
         } catch (Exception e) {
             if (tx != null) {
                 tx.rollback();

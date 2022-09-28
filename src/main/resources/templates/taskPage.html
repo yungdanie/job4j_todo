@@ -71,6 +71,8 @@
                     </label>
                     <textarea class="form-control" disabled rows="5" th:field="*{description}" th:name="description" id="description"></textarea>
                     <br>
+                    <a class="btn btn-primary btn" th:text="|Пользователь: ${user.getLogin()}|" role="button" style="margin: 5px 10px"></a>
+                    <br>
                     <label for="isDone" class="form-check-label"> Статус выполнения
                     </label>
                     <input class="form-check-input" disabled type="checkbox" th:field="*{done}" th:name="done" id="isDone">

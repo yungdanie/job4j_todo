@@ -37,7 +37,7 @@ public class UserController {
             return "redirect:/authUser?fail=true";
         }
         UserUtil.addSessionAndModelUser(model, session, loggedUser.get());
-        return "index";
+        return "redirect:index";
     }
 
 
