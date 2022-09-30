@@ -34,6 +34,10 @@ public class Task {
     @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne(targetEntity = Priority.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "priority_id")
+    private Priority priority;
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -67,8 +67,11 @@
                 <div class="mb-3" style="font-size: 20px; font-weight: bold">
                     <label for="description" class="form-label"> Описание
                     </label>
-                    <textarea class="form-control" rows="5" th:name="description" id="description"></textarea>
+                    <textarea class="form-control" rows="5" th:name="description" id="description" required></textarea>
                     <br>
+                    <select class="form-select" id="priority.id" name="priority.id" required style="margin-top: 10px; margin-bottom: 20px">
+                        <option th:each="priority : ${priorities}" th:value="${priority.getId()}" th:text="${priority.getName()}"></option>
+                    </select>
                     <label for="isDone" class="form-check-label"> Статус выполнения
                     </label>
                     <input type="checkbox" class="form-check-input" th:name="done" id="isDone">

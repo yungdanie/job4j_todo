@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.todolist.model.Task;
+import ru.todolist.service.PriorityService;
 import ru.todolist.service.TaskService;
 import ru.todolist.util.SessionUtil;
 import ru.todolist.util.UserUtil;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class TaskController {
     private final TaskService taskService;
+    private final PriorityService priorityService;
 
     @GetMapping("/allTasks")
     public String allTasks(Model model, HttpSession session) {
@@ -44,6 +46,7 @@ public class TaskController {
     @GetMapping("/addTask")
     public String addTaskForm(Model model, HttpSession session) {
         UserUtil.addModelUser(model, session);
+        model.addAttribute("priorities", priorityService.getAll());
         return "addTaskForm";
     }
 
