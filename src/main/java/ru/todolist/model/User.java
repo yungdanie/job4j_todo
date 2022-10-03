@@ -19,7 +19,7 @@ public class User {
     @SequenceGenerator(name = "user_seq", sequenceName = "user_sequence", initialValue = 1, allocationSize = 10)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "user_seq")
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -30,12 +30,15 @@ public class User {
     @Column(name = "login")
     private String login;
 
+    @Column(name = "time_zone")
+    private String timeZone;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id;
+        return Objects.equals(id, user.id);
     }
 
     @Override

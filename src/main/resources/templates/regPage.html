@@ -60,7 +60,7 @@
         </div>
 
         <div th:if="${fail}" class="alert alert-danger" role="alert" style="margin: 10px 10px">
-            Логин или пароль уже заняты
+            Логин уже занят
         </div>
 
         <div class="card-body">
@@ -68,7 +68,15 @@
                 <div style="font-size: 20px">
                     <input type="text" class="form-control" placeholder="Login" name="login" id="login" style="margin: auto auto 5%" required>
                     <input type="text" class="form-control" placeholder="Password" name="password" id="password" style="margin: auto auto 5%" required>
-                    <input type="text" class="form-control" placeholder="Имя" name="name" id="name" style="margin: auto auto 5%" required>
+                    <input type="text" class="form-control" placeholder="Имя" name="name" id="name" style="margin: auto auto 3%" required>
+                    <label for="timeZone" style="text-align: left">Временная зона</label>
+                    <select class="form-select" id="timeZone" name="timeZone" required style="margin-bottom: 15px">
+                        <option th:value="'+3'" th:text="Санкт-Петербург"></option>
+                        <option th:value="'+3'" th:text="Москва"></option>
+                        <option th:value="'+5'" th:text="Екатеринбунг"></option>
+                        <option th:value="'+6'" th:text="Новосибирск"></option>
+                        <option th:value="'+3'" th:text="Казань"></option>
+                    </select>
                 </div>
                 <button class="btn btn-info" type="submit" th:form="input" style="margin: auto auto 10px; width: 60%; font-weight: bold">Зарегистрироваться</button>
             </form>

@@ -16,10 +16,10 @@ public class Priority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "position")
-    private int position;
+    private Integer position;
 
     @Column(name = "name")
     private String name;
@@ -33,7 +33,7 @@ public class Priority {
             return false;
         }
         Priority priority = (Priority) o;
-        return id == priority.id;
+        return Objects.equals(id, priority.id);
     }
 
     @Override
