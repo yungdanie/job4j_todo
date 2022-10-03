@@ -1,1 +1,0 @@
-alter table todo_task add column priority_id int references priorities(id);

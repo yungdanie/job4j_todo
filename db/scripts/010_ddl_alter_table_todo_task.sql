@@ -1,1 +1,0 @@
-alter table todo_task alter column created TYPE timestamp without time zone DEFAULT now()
