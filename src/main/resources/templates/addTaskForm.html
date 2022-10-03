@@ -72,6 +72,10 @@
                     <label for="isDone" class="form-check-label"> Статус выполнения
                     </label>
                     <input type="checkbox" class="form-check-input" th:name="done" id="isDone">
+                    <select class="form-select" th:id="priority.id" th:name="priority.id" style="margin-top: 20px">
+                        <option selected>Выбрать приоритет</option>
+                        <option th:each="priority : ${priorities}" th:value="${priority.getId()}" th:text="${priority.getName()}"></option>
+                    </select>
                 </div>
                 <input class="btn btn-info" th:type="submit" th:form="input">
             </form>
