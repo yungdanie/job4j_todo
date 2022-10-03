@@ -55,32 +55,51 @@
     </div>
 </nav>
 
-<div class="container-fluid text-center" style="padding: 200px 300px">
+<div class="container-fluid" style="padding: 200px 300px">
     <div class="card">
         <div class="card-header">
-            <h4>
+            <h4 class="text-center">
                 Новая задача
             </h4>
         </div>
         <div class="card-body">
-            <form class="form-floating" th:action="@{/addTask}" th:method="post" id="input">
-                <div class="mb-3" style="font-size: 20px; font-weight: bold">
-                    <label for="description" class="form-label"> Описание
-                    </label>
-                    <textarea class="form-control" rows="5" th:name="description" id="description" required></textarea>
-                    <br>
-                    <select class="form-select" id="priority.id" name="priority.id" required style="margin-top: 10px; margin-bottom: 20px">
-                        <option th:each="priority : ${priorities}" th:value="${priority.getId()}" th:text="${priority.getName()}"></option>
-                    </select>
-                    <label for="isDone" class="form-check-label"> Статус выполнения
-                    </label>
-                    <input type="checkbox" class="form-check-input" th:name="done" id="isDone">
-                    <select class="form-select" th:id="priority.id" th:name="priority.id" style="margin-top: 20px">
-                        <option selected>Выбрать приоритет</option>
-                        <option th:each="priority : ${priorities}" th:value="${priority.getId()}" th:text="${priority.getName()}"></option>
-                    </select>
+            <form class="form" th:action="@{/addTask}" th:method="post" id="input">
+                <div class="mb-3" style="font-size: 20px; font-weight: normal">
+                    <div class="card" style="margin-bottom: 20px">
+                        <div class="card-header text-center">
+                            Описание
+                        </div>
+                        <textarea class="form-control" rows="5" th:name="description" id="description" required></textarea>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 20px">
+                        <div class="card-header text-center">
+                            Выберите категорию
+                        </div>
+                        <div class="form-check" th:each="category : ${categories}" style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
+                            <label class="form-check-label" th:text="${category.getName()}" th:for="${category.getId()}"></label>
+                            <input class="form-check-input" type="checkbox" th:value="${category.getId()}" th:id="${category.getId()}" name="categories">
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header text-center">
+                            Выберите приоритет
+                        </div>
+                        <select class="form-select" id="priority.id" name="priority.id" required style=" width: 100%">
+                            <option th:each="priority : ${priorities}" th:value="${priority.getId()}" th:text="${priority.getName()}"></option>
+                        </select>
+                    </div>
+
+                    <div class="form-check" style="margin-top: 10px; margin-bottom: 10px; margin-left: 10px">
+                        <input class="form-check-input" type="checkbox" th:name="done" id="isDone">
+                        <label class="form-check-label" for="isDone">
+                            Статус выполнения
+                        </label>
+                    </div>
                 </div>
-                <input class="btn btn-info" th:type="submit" th:form="input">
+                <div class="text-center">
+                    <input class="btn btn-info" value="Добавить задачу" th:type="submit" th:form="input">
+                </div>
             </form>
         </div>
     </div>

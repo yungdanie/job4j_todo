@@ -115,8 +115,8 @@
                 </thead>
                 <tbody>
                 <tr th:each="task : ${doneTasks}">
-                    <th scope="row">
-                        <a style="margin: 5px" th:href="@{|/tasks/${task.getId()}|}">
+                    <th scope="row" style="margin: 5px; width: 50px">
+                        <a th:href="@{|/tasks/${task.getId()}|}">
                             <i class="fa fa-edit"></i>
                         </a>
                         <span class="fw-normal text-center" th:text="${task.getId()}"></span>
@@ -124,7 +124,7 @@
                     <th scope="row" style="width: 100px">
                         <p class="fw-normal text-center" th:text="${task.getUser().getLogin()}" style="text-align: justify"></p>
                     </th>
-                    <th scope="row" style="width: 1200px">
+                    <th scope="row" >
                         <p class="fw-normal" th:text="${task.getDescription()}" style="text-align: justify"></p>
                     </th>
                     <th scope="row" style="width: 200px">
@@ -133,7 +133,7 @@
                     <th scope="row" style="width: 100px">
                         <p class="fw-normal text-center" th:text="${task.getPriority().getName()}"></p>
                     </th>
-                    <th scope="row">
+                    <th scope="row" style="width: 100px">
                         <div class="fw-normal text-center">
                             <p th:if="${task.isDone()}">
                                 Выполнено

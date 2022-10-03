@@ -110,6 +110,7 @@
                 <thead class="text-center">
                     <th scope="col">ID</th>
                     <th scope="col">Польз.</th>
+                    <th scope="col">Категории</th>
                     <th scope="col">Описание</th>
                     <th scope="col">Дата</th>
                     <th scope="col">Приоритет</th>
@@ -117,8 +118,8 @@
                 </thead>
                 <tbody>
                 <tr th:each="task : ${allTasks}">
-                    <th scope="row">
-                        <a style="margin: 5px" th:href="@{|/tasks/${task.getId()}|}">
+                    <th scope="row" style="margin: 5px; width: 100px">
+                        <a th:href="@{|/tasks/${task.getId()}|}">
                             <i class="fa fa-edit"></i>
                         </a>
                         <span class="fw-normal text-center" th:text="${task.getId()}"></span>
@@ -126,7 +127,12 @@
                     <th scope="row" style="width: 100px">
                         <p class="fw-normal text-center" th:text="${task.getUser().getLogin()}" style="text-align: justify"></p>
                     </th>
-                    <th scope="row" style="width: 1200px">
+                    <th scope="row" style="width: 100px">
+                        <div th:each="category : ${task.getCategory}" >
+                            <p class="fw-normal text-center" th:text="*{category.getName()}" style="text-align: justify"></p>
+                        </div>
+                    </th>
+                    <th scope="row" >
                         <p class="fw-normal" th:text="${task.getDescription()}" style="text-align: justify"></p>
                     </th>
                     <th scope="row" style="width: 200px">
