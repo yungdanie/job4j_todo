@@ -1,4 +1,4 @@
 create table category(
     id serial primary key,
-    name text unique
+    name text unique not null
 )

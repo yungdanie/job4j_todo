@@ -5,7 +5,6 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import ru.todolist.model.Task;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -17,12 +16,12 @@ public class TaskRepository {
 
     private final GeneralRepository repository;
 
-    public int executeDone(int id) {
+    public Integer executeDone(Integer id) {
         return repository.getResult("update Task set done = :done where id = :id",
                 Map.of("done", true, "id", id), Task.class);
     }
 
-    public int delete(int id) {
+    public Integer delete(Integer id) {
         return repository.getResult("delete from Task where id = :id", Map.of("id", id), Task.class);
     }
 
@@ -35,7 +34,6 @@ public class TaskRepository {
     }
 
     public Task add(Task task) {
-        task.setCreated(LocalDateTime.now());
         repository.tx((Consumer<Session>) session -> session.persist(task));
         return task;
     }

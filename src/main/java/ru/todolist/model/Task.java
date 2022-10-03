@@ -1,9 +1,12 @@
 package ru.todolist.model;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,11 +24,12 @@ public class Task {
     @SequenceGenerator(name = "task_seq", sequenceName = "task_sequence", initialValue = 1, allocationSize = 10)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "task_seq")
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "description")
     private String description;
 
+    @CreationTimestamp
     @Column(name = "created")
     private LocalDateTime created;
 
@@ -48,13 +52,16 @@ public class Task {
     )
     private List<Category> category;
 
+    public ZonedDateTime getZonedCreated() {
+        return created.atZone(ZoneId.of("UTC+0")).withZoneSameInstant(ZoneId.of(user.getTimeZone()));
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id == task.id;
+        return Objects.equals(id, task.id);
     }
 
     @Override

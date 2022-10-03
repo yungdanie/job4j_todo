@@ -1,6 +1,7 @@
 create table todo_user (
     id serial primary key,
-    name text,
+    name text not null,
     login text unique,
-    password text
+    password text not null,
+    time_zone text not null
 );

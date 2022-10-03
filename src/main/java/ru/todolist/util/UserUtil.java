@@ -12,7 +12,7 @@ public class UserUtil {
         return isAuth(user);
     }
     public static boolean isAuth(User user) {
-        return user != null && user.getId() != 0 && user.getLogin() != null && user.getPassword() != null;
+        return user != null && user.getId() != null && user.getLogin() != null && user.getPassword() != null;
     }
 
     public static User addModelUser(Model model, HttpSession session) {
