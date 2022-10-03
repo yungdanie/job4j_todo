@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.todolist.model.Priorities;
 import ru.todolist.model.Task;
-import ru.todolist.service.PrioritiesService;
+import ru.todolist.service.PriorityService;
 import ru.todolist.service.TaskService;
 import ru.todolist.util.SessionUtil;
 import ru.todolist.util.UserUtil;
@@ -21,7 +20,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class TaskController {
     private final TaskService taskService;
-    private final PrioritiesService prioritiesService;
+    private final PriorityService priorityService;
 
     @GetMapping("/allTasks")
     public String allTasks(Model model, HttpSession session) {
@@ -47,12 +46,12 @@ public class TaskController {
     @GetMapping("/addTask")
     public String addTaskForm(Model model, HttpSession session) {
         UserUtil.addModelUser(model, session);
-        model.addAttribute("priorities", prioritiesService.getAll());
+        model.addAttribute("priorities", priorityService.getAll());
         return "addTaskForm";
     }
 
     @PostMapping("/addTask")
-    public String addTask(@ModelAttribute Task task, @ModelAttribute Priorities priority, HttpSession session) {
+    public String addTask(@ModelAttribute Task task, HttpSession session) {
         task.setUser(SessionUtil.reg(session));
         taskService.add(task);
         return "redirect:index";
