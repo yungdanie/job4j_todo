@@ -1,7 +1,6 @@
 package ru.todolist.model;
 
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -29,7 +28,6 @@ public class Task {
     @Column(name = "description")
     private String description;
 
-    @CreationTimestamp
     @Column(name = "created")
     private LocalDateTime created;
 

@@ -5,6 +5,8 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import ru.todolist.model.Task;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -34,6 +36,7 @@ public class TaskRepository {
     }
 
     public Task add(Task task) {
+        task.setCreated(LocalDateTime.now(ZoneId.of("UTC+0")));
         repository.tx((Consumer<Session>) session -> session.persist(task));
         return task;
     }
