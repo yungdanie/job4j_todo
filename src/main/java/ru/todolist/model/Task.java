@@ -4,7 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Getter
@@ -38,6 +40,16 @@ public class Task {
     @ManyToOne(targetEntity = Priority.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "priority_id")
     private Priority priority;
+
+    @ManyToMany(targetEntity = Category.class, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "task_category",
+            joinColumns = {@JoinColumn(name = "task_id")},
+            inverseJoinColumns = {@JoinColumn(name = "category_id")}
+    )
+    private Set<Category> category;
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
