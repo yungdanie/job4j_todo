@@ -57,40 +57,51 @@
     </div>
 </nav>
 
-<div class="container-fluid text-center" style="padding: 200px 300px">
+<div class="container-fluid" style="padding: 200px 300px">
     <div class="card">
-        <div class="card-header">
+        <div class="card-header text-center">
             <h4 th:text="|Задача ID: ${thisTask.getId()}|"></h4>
         </div>
         <div class="card-body">
             <form class="form-floating" id="inputDisabled" th:object="${thisTask}">
                 <input type="number" hidden th:field="*{id}" th:name="id"/>
                 <input type="datetime-local" hidden th:field="*{created}" th:name="created"/>
-                <div class="mb-3" style="font-size: 20px; font-weight: bold">
-                    <label for="description" class="form-label"> Описание
-                    </label>
-                    <textarea class="form-control" disabled rows="5" th:field="*{description}" th:name="description" id="description"></textarea>
-                    <br>
-                    <a class="btn btn-primary btn" th:text="|Пользователь: ${user.getLogin()}|" role="button" style="margin-bottom: 20px"></a>
-                    <br>
-                    <select class="form-select" disabled>
+                <div class="mb-3" style="font-size: 20px">
+                    <div class="text-center">
+                        <label for="description" class="form-label"> Описание
+                        </label>
+                    </div>
+                    <textarea class="form-control" disabled rows="5" th:field="*{description}" th:name="description" id="description" style="margin-bottom: 10px"></textarea>
+                    <div class="text-center">
+                        <a class="btn btn-primary btn" th:text="|Пользователь: ${user.getLogin()}|" role="button" style="margin-bottom: 10px"></a>
+                    </div>
+                    <select class="form-select" disabled style="margin-bottom: 20px">
                         <option selected th:text="*{priority.getName()}" style="margin-top: 20px; margin-bottom: 10px"></option>
                     </select>
+                    <div class="card" style="margin-bottom: 20px">
+                        <div class="card-header text-center">
+                            Категории
+                        </div>
+                        <div class="form-check" style="margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
+                            <div th:each="category : ${categories}" th:if="${#arrays.contains(thisTask.getCategory(), category)}">
+                                <label class="form-check-label" th:text="${category.getName()}" th:for="${category.getId()}"></label>
+                                <input class="form-check-input" disabled checked type="checkbox" th:value="${category.getId()}" th:id="${category.getId()}" name="categories">
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-check-input" disabled type="checkbox" th:field="*{done}" th:name="done" id="isDone" style="margin-left: 10px">
                     <label for="isDone" class="form-check-label"> Статус выполнения
                     </label>
-                    <input class="form-check-input" disabled type="checkbox" th:field="*{done}" th:name="done" id="isDone">
                 </div>
             </form>
             <div class="card">
                 <div class="btn-group" role="group" aria-label="Basic outlined example" style="margin: 20px">
-                    <form class="btn-group" th:method="POST" th:action="@{|/executeTask/${thisTask.getId()}|}" style="width: 100%">
+                    <form class="btn-group" th:if="${!thisTask.isDone()}" style="color: black; width: 100%">
                         <button class="btn btn-success" role="button" style="color: whitesmoke">Выполнить</button>
                     </form>
-
                     <form class="btn-group" th:method="POST" th:action="@{|/deleteTask/${thisTask.getId()}|}" style="color: black; width: 100%">
                         <button class="btn btn-danger" role="button" style="color: whitesmoke">Удалить</button>
                     </form>
-
                     <form class="btn-group" th:method="GET" th:action="@{|/editTask/${thisTask.getId()}|}" style="width: 100%">
                         <button class="btn btn-secondary" role="button" style="color: whitesmoke">Редактировать</button>
                     </form>

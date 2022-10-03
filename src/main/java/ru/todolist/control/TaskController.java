@@ -3,11 +3,9 @@ package ru.todolist.control;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.todolist.model.Task;
+import ru.todolist.service.CategoryService;
 import ru.todolist.service.PriorityService;
 import ru.todolist.service.TaskService;
 import ru.todolist.util.SessionUtil;
@@ -21,6 +19,8 @@ import java.util.Optional;
 public class TaskController {
     private final TaskService taskService;
     private final PriorityService priorityService;
+
+    private final CategoryService categoryService;
 
     @GetMapping("/allTasks")
     public String allTasks(Model model, HttpSession session) {
@@ -47,12 +47,15 @@ public class TaskController {
     public String addTaskForm(Model model, HttpSession session) {
         UserUtil.addModelUser(model, session);
         model.addAttribute("priorities", priorityService.getAll());
+        model.addAttribute("categories", categoryService.getAll());
         return "addTaskForm";
     }
 
     @PostMapping("/addTask")
-    public String addTask(@ModelAttribute Task task, HttpSession session) {
+    public String addTask(@ModelAttribute Task task, HttpSession session,
+                          @RequestParam("categories") int[] categoriesId) {
         task.setUser(SessionUtil.reg(session));
+        task.setCategory(categoryService.getAllByArray(categoriesId));
         taskService.add(task);
         return "redirect:index";
     }
@@ -65,6 +68,7 @@ public class TaskController {
             model.addAttribute("errorMessage", "Пользователь не найден");
             return "errorPage";
         }
+        model.addAttribute("categories", taskService.getAll());
         model.addAttribute("editTask", optionalTask.get());
         return "editTaskPage";
     }
@@ -83,6 +87,7 @@ public class TaskController {
             model.addAttribute("errorMessage", "Пользователь не найден");
             return "errorPage";
         }
+        model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("thisTask", optionalTask.get());
         return "taskPage";
     }
