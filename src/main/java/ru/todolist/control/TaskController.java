@@ -12,6 +12,7 @@ import ru.todolist.util.SessionUtil;
 import ru.todolist.util.UserUtil;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashSet;
 import java.util.Optional;
 
 @Controller
@@ -55,7 +56,7 @@ public class TaskController {
     public String addTask(@ModelAttribute Task task, HttpSession session,
                           @RequestParam("categories") int[] categoriesId) {
         task.setUser(SessionUtil.reg(session));
-        task.setCategory(categoryService.getAllByArray(categoriesId));
+        task.setCategory(new HashSet<>(categoryService.getAllByArray(categoriesId)));
         taskService.add(task);
         return "redirect:index";
     }
