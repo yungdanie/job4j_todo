@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Getter
@@ -48,8 +48,9 @@ public class Task {
             joinColumns = {@JoinColumn(name = "task_id")},
             inverseJoinColumns = {@JoinColumn(name = "category_id")}
     )
-    private List<Category> category;
+    private Set<Category> category;
 
+    @Transient
     public ZonedDateTime getZonedCreated() {
         return created.atZone(ZoneId.of("UTC+0")).withZoneSameInstant(ZoneId.of(user.getTimeZone()));
     }
